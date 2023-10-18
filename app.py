@@ -6,15 +6,27 @@ import os
 load_dotenv()
 
 infura_api=os.getenv("INFURA_API")
+abi=os.getenv("ABI")
+add=os.getenv("ADD")
 
 
-app=Flask(__name__)
+
+
+app = Flask(__name__, template_folder='templates')
 @app.route("/")
 def index():
-    
-    return render_template("index.html")
+    w3 = Web3(Web3.HTTPProvider("infura_api"))
 
-@app.route("/add", methods=["POST"])
+    contract_address = "add"
+    abi = "ABI"
+
+    contract = w3.eth.contract(address=contract_address, abi=abi)
+
+    entries = contract.functions.getEntries().call()
+
+    return render_template("index.html", entries=entries)
+
+
 @app.route("/add", methods=["POST"])
 def add_entry():
     description = request.form["description"]
@@ -22,8 +34,8 @@ def add_entry():
 
     w3 = Web3(Web3.HTTPProvider(infura_api))
 
-    contract_address = ""
-    abi = ""
+    contract_address = "add"
+    abi = "ABI"
 
     contract = w3.eth.contract(address=contract_address, abi=abi)
 
