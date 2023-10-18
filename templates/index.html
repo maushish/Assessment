@@ -4,10 +4,9 @@
 <title>Ledger</title>
 {% endblock %}
 
-
 {% block body %}
 <div class="list">
-    <h1 style="text-align: center;";>Ledger</h1>
+    <h1 style="text-align: center;">Ledger</h1>
     <form action="/add" method="POST">
         <input type="text" name="description" placeholder="Description">
         <input type="number" name="amount" placeholder="Amount">
@@ -15,7 +14,7 @@
     </form>
     <ul>
         {% for entry in entries %}
-            <li>{{ entry }}</li>
+            <li>Description: {{ entry.description }}, Amount: {{ entry.amount }}</li>
         {% endfor %}
     </ul>
 </div>
