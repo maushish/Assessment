@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from web3 import Web3
 import json
-
+#REPLACE WITH YOUR ABI-----------------#
 abi = json.loads('[{"inputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addEntry","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"entries","outputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getEntries","outputs":[{"components":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct Ledger.Entry[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
 contract_address = "0x41FFdE0cF34fB6991f2960cDB385c88659ff6D82"  # Replace with your contract address
 private_key = "051b7dab0e5d6cc6c0a41fa2daecb99ef16ba0e38901ecaef8bc0720c485aa11"  # Replace with your private key
@@ -14,8 +14,6 @@ contract = w3.eth.contract(address=contract_address, abi=abi)
 
 @app.route("/")
 def index():
-    sender_address = "0x41FFdE0cF34fB6991f2960cDB385c88659ff6D82" 
-    print("hi")    
     entries = contract.functions.getEntries().call() 
     print(entries)
     return render_template("index.html", entries=entries)
