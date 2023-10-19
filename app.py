@@ -15,6 +15,7 @@ contract = w3.eth.contract(address=contract_address, abi=abi)
 
 @app.route("/")
 def index():
+    sender_address = "0xD4cd86fC20602Bb54bb76A6052b8a716B1837e79" 
     entries = contract.functions.getEntries().call()
     return render_template("index.html", entries=entries)
 
@@ -42,9 +43,9 @@ def add_entry():
 
     w3.eth.wait_for_transaction_receipt(tx_hash)
     
-    entries = contract.functions["getEntries"].call({'from':sender_address})
-
-    return render_template("index.html", entries=entries)
+    app.logger.info('testing info log')
+    entries = contract.functions.getEntries().call()
+    return render_template("index.html",entries=entries)
 
 if __name__ == "__main__":
     app.run(debug=True)
