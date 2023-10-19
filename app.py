@@ -28,7 +28,7 @@ def add_entry():
 
     nonce = w3.eth.get_transaction_count(sender_address)
 
-    transaction = contract.functions.addEntry(description, amt).transact({
+    transaction = contract.functions["addEntry"](description, amt).build_transaction({
         'chainId': 5,
         'nonce': nonce,
         'gas': 2000000,
@@ -36,13 +36,13 @@ def add_entry():
         'from': sender_address
     })
 
-    signed_tx = w3.eth.account.signTransaction(transaction, private_key=private_key)
+    signed_tx = w3.eth.account.sign_transaction(transaction, private_key=private_key)
 
-    tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
-    w3.eth.waitForTransactionReceipt(tx_hash)
-
-    entries = contract.functions.getEntries().call()
+    w3.eth.wait_for_transaction_receipt(tx_hash)
+    
+    entries = contract.functions["getEntries"].call({'from':sender_address})
 
     return render_template("index.html", entries=entries)
 
