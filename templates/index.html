@@ -9,12 +9,12 @@
     <h1 style="text-align: center;">Ledger</h1>
     <form action="/add" method="POST">
         <input type="text" name="description" placeholder="Description" id="description">
-        <input type="number" name="amount" placeholder="2" id="amt">
+        <input type="number" name="amount" placeholder="Amount" id="amt">
         <button type="submit">Add Entry</button>
     </form>
     <ul>
         {% for entry in entries %}
-            <li>Description: {{ entry[0] }}, Amount: {{ entry[1]}}</li>
+            <li>Description: {{ entry[0] }}, Amount: {{ entry[1 ]}}</li>
         {% endfor %}
     </ul>
 </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from web3 import Web3
 import json
 
@@ -46,7 +46,8 @@ def add_entry():
     
     app.logger.info('testing info log')
     entries = contract.functions.getEntries().call()
-    return render_template("index.html",entries=entries)
+    # return render_template("index.html",entries=entries)
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
