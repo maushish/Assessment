@@ -14,7 +14,7 @@
     </form>
     <ul>
         {% for entry in entries %}
-            <li>Description: {{ entry.description }}, Amount: {{ entry.amount }}</li>
+            <li>Description: {{ entry[0] }}, Amount: {{ entry[1]}}</li>
         {% endfor %}
     </ul>
 </div>

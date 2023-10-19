@@ -2,9 +2,8 @@ from flask import Flask, render_template, request, redirect
 from web3 import Web3
 import json
 
-abi = json.loads('[{"inputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addEntry","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"entries","outputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getEntries","outputs":[{"components":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct Ledger.Entry[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
-
-contract_address = "0x57F6eBc68ED66417f09e832cb98fA50c48bcb432"  # Replace with your contract address
+abi = json.loads('[{"inputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addEntry","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"entries","outputs":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getEntries","outputs":[{"components":[{"internalType":"string","name":"description","type":"string"},{"internalType":"uint256","name":"amount","type":"uint256"}],"internalType":"struct Ledger.Entry[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"}]')
+contract_address = "0x41FFdE0cF34fB6991f2960cDB385c88659ff6D82"  # Replace with your contract address
 private_key = "051b7dab0e5d6cc6c0a41fa2daecb99ef16ba0e38901ecaef8bc0720c485aa11"  # Replace with your private key
 
 app = Flask(__name__)
@@ -15,8 +14,10 @@ contract = w3.eth.contract(address=contract_address, abi=abi)
 
 @app.route("/")
 def index():
-    sender_address = "0xD4cd86fC20602Bb54bb76A6052b8a716B1837e79" 
-    entries = contract.functions.getEntries().call()
+    sender_address = "0x41FFdE0cF34fB6991f2960cDB385c88659ff6D82" 
+    print("hi")    
+    entries = contract.functions.getEntries().call() 
+    print(entries)
     return render_template("index.html", entries=entries)
 
 @app.route("/add", methods=["POST"])
